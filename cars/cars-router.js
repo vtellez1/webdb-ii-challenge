@@ -47,4 +47,31 @@ router.post('/', async (req, res, next) => {
     }
 });
 
+router.put('/:id', async (req, res, next) => {
+    try{
+        const payload = {
+            vin: req.body.vin,
+            make: req.body.make,
+            model: req.body.model,
+            mileage: req.body.model,
+            transmission: req.body.transmission,
+            status_of_title: req.body.status_of_title
+        }
+        await db("cars").where("id", req.params.id).update(payload)
+        res.json( await db("cars").where("id", req.params.id).first())
+    } catch (error){
+        next(error)
+    }
+});
+
+router.delete('/:id', async (req, res, next) => {
+    try{
+        await db("cars").where("id", req.params.id).del()
+        res.status(204).end()
+    } catch (error){
+        next(error)
+    }
+});
+
+
 module.exports = router;
