@@ -19,3 +19,5 @@ server.use((err, req, res) => {
     });
 });
 
+module.exports = server;
+
